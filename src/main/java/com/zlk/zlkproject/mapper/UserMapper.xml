@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zlk.zlkproject.mapper.UserMapper">
+    <select id="selectUserLogin" resultType="java.lang.Integer">
+        select count(id)
+        from user
+        where username=#{username} and password=#{password}
+    </select>
+    <select id="selectUserByName" resultType="java.lang.Integer">
+        select count(username) from user where username = #{username}
+    </select>
+    <insert id="saveUser" parameterType="com.zlk.zlkproject.entity.User">
+        insert into user(username,password)
+        values (#{username},#{password})
+    </insert>
+</mapper>

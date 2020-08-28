@@ -1,0 +1,27 @@
+###
+下载完项目之后需要配置成自己的maven地址，在settings里面设置。
+###
+fastDFS上传示例
+@Controller
+public class controller {
+    @Autowired
+    //对文件进行上传的工具类
+    private CommonFileUtil commonFileUtil;
+    @Autowired
+    private FdfsConfig fdfsConfig;
+    @RequestMapping(value = "/uploadTest")
+    @ResponseBody
+    public String uploadTest(@RequestParam(name = "file") MultipartFile file) throws Exception{
+        //path是文件上传到FastDFS服务器上的路径
+        String path = commonFileUtil.uploadFile(file);
+        /*
+        * url是最终访问文件资源的地址
+        * fdfsConfig.getResHost()获取的是服务器的ip
+        * fdfsConfig.getStoragePort()获取的是服务器的端口
+        */
+        String url = fdfsConfig.getResHost()+":"+fdfsConfig.getStoragePort()+path;
+        System.out.println(path);
+        System.out.println(url);
+        return url;
+    }
+}
